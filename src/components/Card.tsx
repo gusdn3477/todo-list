@@ -3,14 +3,8 @@ import styled from 'styled-components';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import CloseIcon from '@mui/icons-material/Close';
 import SellIcon from '@mui/icons-material/Sell';
-
-interface CardProps {
-  checked?: boolean;
-  title?: string;
-  date?: string;
-  isBookMarked?: boolean;
-  tagColor?: string;
-}
+import { CardProps } from '@/types/Card';
+import { StyledIconWrapper } from '@/components/style';
 
 const Card = ({
   checked = false,
@@ -22,7 +16,7 @@ const Card = ({
   return (
     <StyledCard>
       <StyledCardLeft>
-        <Checkbox />
+        <Checkbox size="large" />
         <strong>{title}</strong>
         <div>{date}</div>
       </StyledCardLeft>
@@ -60,12 +54,4 @@ const StyledCardLeft = styled.div`
 const StyledCardRight = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const StyledIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  width: 35px;
-  height: 35px;
 `;
