@@ -1,26 +1,27 @@
 import { TextField } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { ChangeEvent, KeyboardEvent } from 'react';
 import styled from 'styled-components';
 
-const InputField = () => {
-  const [contents, setContents] = useState('');
-  const placeholder = `할 일을 입력해 주세요.`;
+interface InputFieldProps {
+  contents: string;
+  placeholder: string;
+  handleContentsChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleEnterKeyPress: (event: KeyboardEvent<HTMLDivElement>) => void;
+}
 
-  const handleContentsChange = useCallback(
-    (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      setContents(event.target.value);
-    },
-    [],
-  );
-
+const InputField = ({
+  placeholder,
+  contents,
+  handleContentsChange,
+  handleEnterKeyPress,
+}: InputFieldProps) => {
   return (
-    <div>
-      <StyledTextField
-        value={contents}
-        onChange={handleContentsChange}
-        placeholder={placeholder}
-      />
-    </div>
+    <StyledTextField
+      value={contents}
+      onChange={handleContentsChange}
+      onKeyDown={handleEnterKeyPress}
+      placeholder={placeholder}
+    />
   );
 };
 
