@@ -1,11 +1,7 @@
-import Card from './components/Card';
+import TodoList from './pages/TodoList';
 
 function App() {
-  return (
-    <>
-      <Card />
-    </>
-  );
+  return <TodoList />;
 }
 
 export default App;
