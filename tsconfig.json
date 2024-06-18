@@ -18,8 +18,17 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* 절대경로 설정 */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/assets": ["src/assets/*"],
+      "@/components": ["src/components/*"]
+    }
   },
+
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
