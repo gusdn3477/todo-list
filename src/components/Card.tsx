@@ -1,7 +1,6 @@
 import { Checkbox } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
-import SellIcon from '@mui/icons-material/Sell';
 import { StyledIconWrapper } from '@/components/style';
 import { ChangeEvent } from 'react';
 import CardStore from '@/store/CardStore';
@@ -37,15 +36,18 @@ const Card = observer(({ card }: CardProps) => {
           checked={card.checked}
           size="large"
         />
-        <strong>{card.title}</strong>
-        <span>{card.date}</span>
+        <StyledStrong>{card.title}</StyledStrong>
+        <StyledSpan>{card.date}</StyledSpan>
       </StyledCardLeft>
 
       <StyledCardRight>
-        <Star
-          isBookMarked={card.isBookMakred}
-          handleClick={() => handleBookMarkChange(card.id)}
-        />
+        {!card.checked && (
+          <Star
+            isBookMarked={card.isBookMakred}
+            handleClick={() => handleBookMarkChange(card.id)}
+          />
+        )}
+
         {/* <StyledIconWrapper>
           <SellIcon fontSize="large" />
         </StyledIconWrapper> */}
@@ -80,3 +82,7 @@ const StyledCardRight = styled.div`
   display: flex;
   align-items: center;
 `;
+
+const StyledStrong = styled.strong``;
+
+const StyledSpan = styled.span``;
