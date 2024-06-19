@@ -17,7 +17,7 @@ class CardStore {
     return this._cardList.filter(card => card.checked === true);
   }
 
-  get remainList() {
+  get normalList() {
     const res = this._cardList.filter(card => card.isBookMakred !== true);
     return res.filter(card => card.checked !== true);
   }
