@@ -9,6 +9,7 @@ const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
     title: '',
     taskName: '',
+    // TODO: DB로 관리 필요
     lastIdx: 0,
   }));
 
