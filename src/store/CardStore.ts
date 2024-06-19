@@ -2,9 +2,11 @@ import { CardModel } from '@/models/CardModel';
 import { makeAutoObservable } from 'mobx';
 
 class CardStore {
+  private _selectedCardId: number;
   private _cardList: CardModel[];
 
   constructor() {
+    this._selectedCardId = -1;
     this._cardList = [];
     makeAutoObservable(this);
   }
@@ -24,6 +26,14 @@ class CardStore {
 
   get cardList() {
     return this._cardList;
+  }
+
+  get selectedCardId() {
+    return this._selectedCardId;
+  }
+
+  setSelectedCardId(id: number) {
+    this._selectedCardId = id;
   }
 
   fetchCardList() {
