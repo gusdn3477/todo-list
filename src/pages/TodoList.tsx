@@ -24,15 +24,17 @@ const TodoList = observer(() => {
         if (type === 'title') {
           console.log('엔터 키 입력');
         } else {
-          CardStore.addCard({
-            id: store.lastIdx++,
-            checked: false,
-            title: store.taskName,
-            date: new Date().toISOString(),
-            isBookMakred: false,
-            tagColor: '',
-          });
-          store.taskName = '';
+          if (store.taskName.length > 0) {
+            CardStore.addCard({
+              id: store.lastIdx++,
+              checked: false,
+              title: store.taskName,
+              date: new Date().toISOString(),
+              isBookMakred: false,
+              tagColor: '',
+            });
+            store.taskName = '';
+          }
         }
       }
     };

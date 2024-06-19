@@ -7,12 +7,13 @@ import { StyledIconWrapper } from '@/components/style';
 import { ChangeEvent } from 'react';
 import CardStore from '@/store/CardStore';
 import { CardModel } from '@/models/CardModel';
+import { observer } from 'mobx-react-lite';
 
 export interface CardProps {
   card: CardModel;
 }
 
-const Card = ({ card }: CardProps) => {
+const Card = observer(({ card }: CardProps) => {
   const handleCheckBoxClick = (
     id: number,
     event: ChangeEvent<HTMLInputElement>,
@@ -51,13 +52,13 @@ const Card = ({ card }: CardProps) => {
       </StyledCardRight>
     </StyledCard>
   );
-};
+});
 
 export default Card;
 
 const StyledCard = styled.div`
   display: flex;
-  width: 100%;
+  width: calc(100% - 2px);
   height: 65px;
   border: 1px solid black;
   align-items: center;
