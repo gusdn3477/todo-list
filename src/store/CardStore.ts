@@ -9,6 +9,19 @@ class CardStore {
     makeAutoObservable(this);
   }
 
+  get bookMarkedList() {
+    return this._cardList.filter(card => card.isBookMakred === true);
+  }
+
+  get completedList() {
+    return this._cardList.filter(card => card.checked === true);
+  }
+
+  get remainList() {
+    const res = this._cardList.filter(card => card.isBookMakred !== true);
+    return res.filter(card => card.checked !== true);
+  }
+
   get cardList() {
     return this._cardList;
   }
