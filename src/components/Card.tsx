@@ -1,6 +1,5 @@
 import { Checkbox } from '@mui/material';
 import styled from 'styled-components';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import CloseIcon from '@mui/icons-material/Close';
 import SellIcon from '@mui/icons-material/Sell';
 import { StyledIconWrapper } from '@/components/style';
@@ -8,6 +7,7 @@ import { ChangeEvent } from 'react';
 import CardStore from '@/store/CardStore';
 import { CardModel } from '@/models/CardModel';
 import { observer } from 'mobx-react-lite';
+import Star from '@/components/Star';
 
 export interface CardProps {
   card: CardModel;
@@ -18,10 +18,12 @@ const Card = observer(({ card }: CardProps) => {
     id: number,
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    console.log(event.target.checked);
+    CardStore.toggleChecked(id, event.target.checked);
   };
 
-  const handleBookMarkChange = () => {};
+  const handleBookMarkChange = (id: number) => {
+    CardStore.toggleBookMark(id);
+  };
 
   const handleCardDelete = (id: number) => {
     CardStore.deleteCard(id);
@@ -40,12 +42,13 @@ const Card = observer(({ card }: CardProps) => {
       </StyledCardLeft>
 
       <StyledCardRight>
-        <StyledIconWrapper>
-          <StarBorderIcon fontSize="large" />
-        </StyledIconWrapper>
-        <StyledIconWrapper>
+        <Star
+          isBookMarked={card.isBookMakred}
+          handleClick={() => handleBookMarkChange(card.id)}
+        />
+        {/* <StyledIconWrapper>
           <SellIcon fontSize="large" />
-        </StyledIconWrapper>
+        </StyledIconWrapper> */}
         <StyledIconWrapper onClick={() => handleCardDelete(card.id)}>
           <CloseIcon fontSize="large" />
         </StyledIconWrapper>
