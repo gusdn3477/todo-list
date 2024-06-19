@@ -8,17 +8,7 @@ const CardList = observer(() => {
     CardStore.fetchCardList();
   }, []);
 
-  const cardList = CardStore.cardList.map(card => (
-    <Card
-      id={card.id}
-      key={card.id}
-      checked={card.checked}
-      title={card.title}
-      date={card.date}
-      isBookMarked={card.isBookMakred}
-      tagColor={card.tagColor}
-    />
-  ));
+  const cardList = CardStore.cardList.map(card => <Card card={card} />);
 
   return cardList;
 });

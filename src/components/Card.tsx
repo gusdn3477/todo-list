@@ -5,17 +5,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import SellIcon from '@mui/icons-material/Sell';
 import { StyledIconWrapper } from '@/components/style';
 import { ChangeEvent } from 'react';
+import CardStore from '@/store/CardStore';
+import { CardModel } from '@/models/CardModel';
 
 export interface CardProps {
-  id: number;
-  checked: boolean;
-  title: string;
-  date: string;
-  isBookMarked: boolean;
-  tagColor?: string;
+  card: CardModel;
 }
 
-const Card = ({ id, checked, title, date, isBookMarked }: CardProps) => {
+const Card = ({ card }: CardProps) => {
   const handleCheckBoxClick = (
     id: number,
     event: ChangeEvent<HTMLInputElement>,
@@ -23,19 +20,22 @@ const Card = ({ id, checked, title, date, isBookMarked }: CardProps) => {
     console.log(event.target.checked);
   };
 
+  const handleBookMarkChange = () => {};
+
   const handleCardDelete = (id: number) => {
+    CardStore.deleteCard(id);
     // id를 가지고 스토어에서 해당 카드 삭제
   };
   return (
     <StyledCard>
       <StyledCardLeft>
         <Checkbox
-          onChange={event => handleCheckBoxClick(id, event)}
-          checked={checked}
+          onChange={event => handleCheckBoxClick(card.id, event)}
+          checked={card.checked}
           size="large"
         />
-        <strong>{title}</strong>
-        <span>{date}</span>
+        <strong>{card.title}</strong>
+        <span>{card.date}</span>
       </StyledCardLeft>
 
       <StyledCardRight>
@@ -45,7 +45,7 @@ const Card = ({ id, checked, title, date, isBookMarked }: CardProps) => {
         <StyledIconWrapper>
           <SellIcon fontSize="large" />
         </StyledIconWrapper>
-        <StyledIconWrapper onClick={() => handleCardDelete(id)}>
+        <StyledIconWrapper onClick={() => handleCardDelete(card.id)}>
           <CloseIcon fontSize="large" />
         </StyledIconWrapper>
       </StyledCardRight>
