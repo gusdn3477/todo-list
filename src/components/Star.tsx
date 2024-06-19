@@ -2,14 +2,18 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { StyledIconWrapper } from '@/components/style';
 
-interface StartProps {
+interface StarProps {
   isBookMarked?: boolean;
   handleClick?: () => void;
 }
-const Star = ({ isBookMarked, handleClick }: StartProps) => {
+const Star = ({ isBookMarked, handleClick }: StarProps) => {
   return (
     <StyledIconWrapper onClick={handleClick}>
-      {isBookMarked ? <StarIcon /> : <StarBorderIcon />}
+      {isBookMarked ? (
+        <StarIcon fontSize="large" color="info" />
+      ) : (
+        <StarBorderIcon fontSize="large" />
+      )}
     </StyledIconWrapper>
   );
 };
