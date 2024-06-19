@@ -1,17 +1,7 @@
 import InputField from '@/components/InputField';
-import Card from '@/components/Card';
 import styled from 'styled-components';
-import * as T from '@/types/Card';
 import { useCallback, useState, KeyboardEvent, ChangeEvent } from 'react';
-
-const data: T.Card = {
-  id: 0,
-  checked: false,
-  title: '123',
-  date: '2022-02-02',
-  isBookMarked: false,
-  tagColor: 'red',
-};
+import CardList from '@/components/CardList';
 
 const TodoList = () => {
   const [title, setTitle] = useState('');
@@ -46,14 +36,7 @@ const TodoList = () => {
         placeholder="할 일을 입력해 주세요."
         handleEnterKeyPress={handleEnterKeyPress}
       />
-      <Card
-        id={data.id}
-        checked={data.checked}
-        title={data.title}
-        date={data.date}
-        isBookMarked={data.isBookMarked}
-        tagColor={data.tagColor}
-      />
+      <CardList />
     </>
   );
 };
