@@ -1,13 +1,15 @@
 import InputField from '@/components/InputField';
 import styled from 'styled-components';
-import { KeyboardEvent, ChangeEvent } from 'react';
-import CardList from '@/components/CardList';
+import { KeyboardEvent, ChangeEvent, useEffect } from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
+import CardStore from '@/store/CardStore';
+import Card from '@/components/Card';
 
 const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
     title: '',
     taskName: '',
+    lastIdx: 0,
   }));
 
   const handleContentsChange =
@@ -19,10 +21,25 @@ const TodoList = observer(() => {
   const handleEnterKeyPress =
     (type: 'title' | 'taskName') => (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
-        if (type === 'title') console.log('제목 변경');
-        else console.log('새로운 태스크 추가');
+        if (type === 'title') {
+          console.log('엔터 키 입력');
+        } else {
+          CardStore.addCard({
+            id: store.lastIdx++,
+            checked: false,
+            title: store.taskName,
+            date: new Date().toISOString(),
+            isBookMakred: false,
+            tagColor: '',
+          });
+          store.taskName = '';
+        }
       }
     };
+
+  useEffect(() => {
+    CardStore.fetchCardList();
+  }, []);
 
   return (
     <>
@@ -40,7 +57,9 @@ const TodoList = observer(() => {
         placeholder="할 일을 입력해 주세요."
         handleEnterKeyPress={handleEnterKeyPress('taskName')}
       />
-      <CardList />
+      {CardStore.cardList.map(card => (
+        <Card card={card} key={card.id} />
+      ))}
     </>
   );
 });
