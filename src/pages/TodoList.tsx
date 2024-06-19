@@ -59,8 +59,16 @@ const TodoList = observer(() => {
         placeholder="할 일을 입력해 주세요."
         handleEnterKeyPress={handleEnterKeyPress('taskName')}
       />
-      {CardStore.cardList.map(card => (
-        <Card card={card} key={card.id} />
+      {CardStore.bookMarkedList.map(card => (
+        <Card card={card} key={`bookmark_${card.id}`} />
+      ))}
+
+      {CardStore.normalList.map(card => (
+        <Card card={card} key={`normal_${card.id}`} />
+      ))}
+
+      {CardStore.completedList.map(card => (
+        <Card card={card} key={`completed_${card.id}`} />
       ))}
     </>
   );
