@@ -29,21 +29,21 @@ const Card = observer(({ card }: CardProps) => {
     // id를 가지고 스토어에서 해당 카드 삭제
   };
   return (
-    <StyledCard>
+    <StyledCard checked={card.checked} isBookMarked={card.isBookMarked}>
       <StyledCardLeft>
         <Checkbox
           onChange={event => handleCheckBoxClick(card.id, event)}
           checked={card.checked}
           size="large"
         />
-        <StyledStrong>{card.title}</StyledStrong>
-        <StyledSpan>{card.date}</StyledSpan>
+        <StyledStrong checked={card.checked}>{card.title}</StyledStrong>
+        <StyledSpan checked={card.checked}>{card.date}</StyledSpan>
       </StyledCardLeft>
 
       <StyledCardRight>
         {!card.checked && (
           <Star
-            isBookMarked={card.isBookMakred}
+            isBookMarked={card.isBookMarked}
             handleClick={() => handleBookMarkChange(card.id)}
           />
         )}
@@ -61,13 +61,15 @@ const Card = observer(({ card }: CardProps) => {
 
 export default Card;
 
-const StyledCard = styled.div`
+const StyledCard = styled.div<{ checked?: boolean; isBookMarked?: boolean }>`
   display: flex;
   width: calc(100% - 2px);
   height: 65px;
   border: 1px solid black;
   align-items: center;
   justify-content: space-between;
+  background-color: ${props =>
+    props.checked ? '#E2E2E2' : props.isBookMarked ? '#daeefa' : 'white'};
 `;
 
 const StyledCardLeft = styled.div`
@@ -83,6 +85,10 @@ const StyledCardRight = styled.div`
   align-items: center;
 `;
 
-const StyledStrong = styled.strong``;
+const StyledStrong = styled.strong<{ checked?: boolean }>`
+  text-decoration: ${props => (props.checked ? 'line-through' : '')};
+`;
 
-const StyledSpan = styled.span``;
+const StyledSpan = styled.span<{ checked?: boolean }>`
+  text-decoration: ${props => (props.checked ? 'line-through' : '')};
+`;
