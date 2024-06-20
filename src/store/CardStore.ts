@@ -49,26 +49,32 @@ class CardStore {
   }
 
   toggleChecked(id: number, checked: boolean) {
-    this._cardList = this._cardList.map(card =>
-      card.id === id
-        ? {
-            ...card,
-            checked,
-            isBookMarked: false,
-          }
-        : card,
-    );
+    // 사용자 편의성을 위해 일부러 300ms의 지연 시간 적용
+    setTimeout(() => {
+      this._cardList = this._cardList.map(card =>
+        card.id === id
+          ? {
+              ...card,
+              checked,
+              isBookMarked: false,
+            }
+          : card,
+      );
+    }, 300);
   }
 
   toggleBookMark(id: number) {
-    this._cardList = this._cardList.map(card =>
-      card.id === id
-        ? {
-            ...card,
-            isBookMarked: !card.isBookMarked,
-          }
-        : card,
-    );
+    // 사용자 편의성을 위해 일부러 300ms의 지연 시간 적용
+    setTimeout(() => {
+      this._cardList = this._cardList.map(card =>
+        card.id === id
+          ? {
+              ...card,
+              isBookMarked: !card.isBookMarked,
+            }
+          : card,
+      );
+    }, 300);
   }
 }
 
