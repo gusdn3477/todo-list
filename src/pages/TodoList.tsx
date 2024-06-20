@@ -30,7 +30,6 @@ const TodoList = observer(() => {
               id: store.lastIdx++,
               checked: false,
               title: store.taskName,
-              date: new Date().toISOString(),
               isBookMarked: false,
               tagColor: '',
             });
@@ -78,6 +77,9 @@ const TodoList = observer(() => {
 export default TodoList;
 
 const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  background-color: blue;
+  background-color: skyblue;
 `;
