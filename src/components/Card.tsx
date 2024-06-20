@@ -97,7 +97,3 @@ const StyledCardRight = styled.div`
 const StyledStrong = styled.strong<{ checked?: boolean }>`
   text-decoration: ${props => (props.checked ? 'line-through' : '')};
 `;
-
-const StyledSpan = styled.span<{ checked?: boolean }>`
-  text-decoration: ${props => (props.checked ? 'line-through' : '')};
-`;
