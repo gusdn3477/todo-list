@@ -25,9 +25,9 @@ const Card = observer(({ card }: CardProps) => {
     CardStore.toggleBookMark(id);
   };
 
-  const handleCardDelete = (id: number) => {
-    CardStore.deleteCard(id);
-    // id를 가지고 스토어에서 해당 카드 삭제
+  const handleCardDelete = () => {
+    CardStore.setSelectedCard(card);
+    UiStore.handleDialogVisible(true);
   };
 
   const handleChipClick = (event: MouseEvent<HTMLDivElement>) => {
@@ -61,9 +61,6 @@ const Card = observer(({ card }: CardProps) => {
           />
         )}
 
-        {/* <StyledIconWrapper>
-          <SellIcon fontSize="large" />
-        </StyledIconWrapper> */}
         <StyledIconWrapper onClick={() => handleCardDelete(card.id)}>
           <CloseIcon fontSize="large" />
         </StyledIconWrapper>

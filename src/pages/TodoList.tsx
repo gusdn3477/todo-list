@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import UiStore from '@/store/UiStore';
 import { MouseEvent } from 'react';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
 
 const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
@@ -53,6 +54,11 @@ const TodoList = observer(() => {
         }
       }
     };
+
+  const handleCardDelete = () => {
+    CardStore.deleteCard(CardStore.selectedCard.id);
+    UiStore.handleDialogVisible(false);
+  };
 
   useEffect(() => {
     CardStore.fetchCardList();
@@ -108,6 +114,11 @@ const TodoList = observer(() => {
           <Calendar onClickDay={e => console.log(e)} />
         </StyledCalendarWrapper>
       )}
+      <ConfirmDialog
+        open={UiStore.open}
+        handleClose={() => UiStore.handleDialogVisible(false)}
+        handleConfirm={handleCardDelete}
+      />
     </>
   );
 });
