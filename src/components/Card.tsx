@@ -61,7 +61,7 @@ const Card = observer(({ card }: CardProps) => {
           />
         )}
 
-        <StyledIconWrapper onClick={() => handleCardDelete(card.id)}>
+        <StyledIconWrapper onClick={handleCardDelete}>
           <CloseIcon fontSize="large" />
         </StyledIconWrapper>
       </StyledCardRight>
