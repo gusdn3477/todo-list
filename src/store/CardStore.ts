@@ -46,6 +46,16 @@ class CardStore {
     this._cardList = [];
   }
 
+  updateCard(updateCard: CardModel) {
+    this._cardList = this._cardList.map(card =>
+      card.id === updateCard.id
+        ? {
+            ...updateCard,
+          }
+        : card,
+    );
+  }
+
   addCard(card: CardModel) {
     this._cardList = [...this._cardList, card];
   }
