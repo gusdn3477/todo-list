@@ -1,9 +1,13 @@
 import InputField from '@/components/InputField';
 import styled from 'styled-components';
-import { KeyboardEvent, ChangeEvent, useEffect } from 'react';
+import { KeyboardEvent, ChangeEvent, useEffect, useRef } from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
 import CardStore from '@/store/CardStore';
 import Card from '@/components/Card';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import UiStore from '@/store/UiStore';
+import { MouseEvent } from 'react';
 
 const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
@@ -12,6 +16,17 @@ const TodoList = observer(() => {
     // TODO: DB로 관리 필요
     lastIdx: 0,
   }));
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent<Document>) => {
+    if (
+      calendarRef.current &&
+      !calendarRef.current.contains(event.target as Node)
+    ) {
+      UiStore.handleCalendarVisible(false);
+    }
+  };
 
   const handleContentsChange =
     (type: 'title' | 'taskName') => (event: ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +58,19 @@ const TodoList = observer(() => {
     CardStore.fetchCardList();
   }, []);
 
+  useEffect(() => {
+    document.addEventListener(
+      'mousedown',
+      handleClickOutside as unknown as EventListener,
+    );
+    return () => {
+      document.removeEventListener(
+        'mousedown',
+        handleClickOutside as unknown as EventListener,
+      );
+    };
+  }, []);
+
   return (
     <>
       <StyledHeader>
@@ -70,6 +98,16 @@ const TodoList = observer(() => {
       {CardStore.completedList.map(card => (
         <Card card={card} key={`completed_${card.id}`} />
       ))}
+
+      {UiStore.calendarOpen && (
+        <StyledCalendarWrapper
+          ref={calendarRef}
+          top={UiStore.calendarPosition.top}
+          left={UiStore.calendarPosition.left}
+        >
+          <Calendar onClickDay={e => console.log(e)} />
+        </StyledCalendarWrapper>
+      )}
     </>
   );
 });
@@ -82,4 +120,11 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   width: 100%;
   background-color: skyblue;
+`;
+
+const StyledCalendarWrapper = styled.div<{ top: number; left: number }>`
+  position: absolute;
+  top: ${props => props.top}px;
+  left: ${props => props.left}px;
+  z-index: 1000;
 `;
