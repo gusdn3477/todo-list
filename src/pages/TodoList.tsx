@@ -31,7 +31,7 @@ const TodoList = observer(() => {
               checked: false,
               title: store.taskName,
               date: new Date().toISOString(),
-              isBookMakred: false,
+              isBookMarked: false,
               tagColor: '',
             });
             store.taskName = '';

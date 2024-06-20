@@ -12,7 +12,7 @@ class CardStore {
   }
 
   get bookMarkedList() {
-    return this._cardList.filter(card => card.isBookMakred === true);
+    return this._cardList.filter(card => card.isBookMarked === true);
   }
 
   get completedList() {
@@ -20,7 +20,7 @@ class CardStore {
   }
 
   get normalList() {
-    const res = this._cardList.filter(card => card.isBookMakred !== true);
+    const res = this._cardList.filter(card => card.isBookMarked !== true);
     return res.filter(card => card.checked !== true);
   }
 
@@ -54,6 +54,7 @@ class CardStore {
         ? {
             ...card,
             checked,
+            isBookMarked: false,
           }
         : card,
     );
@@ -64,7 +65,7 @@ class CardStore {
       card.id === id
         ? {
             ...card,
-            isBookMakred: !card.isBookMakred,
+            isBookMarked: !card.isBookMarked,
           }
         : card,
     );
