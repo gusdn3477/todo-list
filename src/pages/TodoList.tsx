@@ -14,6 +14,7 @@ const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
     title: '',
     taskName: '',
+    disabled: false,
     // TODO: DB로 관리 필요
     lastIdx: 0,
   }));
@@ -31,15 +32,14 @@ const TodoList = observer(() => {
 
   const handleContentsChange =
     (type: 'title' | 'taskName') => (event: ChangeEvent<HTMLInputElement>) => {
-      if (type === 'title') store[type] = event.target.value;
-      else store[type] = event.target.value;
+      store[type] = event.target.value;
     };
 
   const handleEnterKeyPress =
     (type: 'title' | 'taskName') => (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
-        if (type === 'title') {
-          console.log('엔터 키 입력');
+        if (type === 'title' && store.title.length > 0) {
+          store.disabled = true;
         } else {
           if (store.taskName.length > 0) {
             CardStore.addCard({
@@ -92,8 +92,9 @@ const TodoList = observer(() => {
         <InputField
           contents={store.title}
           handleContentsChange={handleContentsChange('title')}
-          placeholder={store.title}
+          placeholder="제목을 입력해 주세요."
           handleEnterKeyPress={handleEnterKeyPress('title')}
+          disabled={store.disabled}
         />
       </StyledHeader>
       <InputField
