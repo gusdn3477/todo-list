@@ -29,7 +29,7 @@ export default InputField;
 
 const StyledTextField = styled(TextField)`
   & input {
-    color: red;
+    color: black;
   }
 
   &.MuiTextField-root {
