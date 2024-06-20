@@ -3,6 +3,6 @@ export interface CardModel {
   checked: boolean;
   title: string;
   date: string;
-  isBookMakred: boolean;
+  isBookMarked: boolean;
   tagColor: string;
 }
