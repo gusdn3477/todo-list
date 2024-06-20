@@ -7,6 +7,7 @@ interface InputFieldProps {
   placeholder: string;
   handleContentsChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleEnterKeyPress: (event: KeyboardEvent<HTMLDivElement>) => void;
+  disabled?: boolean;
 }
 
 const InputField = ({
@@ -14,6 +15,7 @@ const InputField = ({
   contents,
   handleContentsChange,
   handleEnterKeyPress,
+  disabled,
 }: InputFieldProps) => {
   return (
     <StyledTextField
@@ -21,6 +23,7 @@ const InputField = ({
       onChange={handleContentsChange}
       onKeyDown={handleEnterKeyPress}
       placeholder={placeholder}
+      disabled={disabled}
     />
   );
 };
@@ -34,5 +37,11 @@ const StyledTextField = styled(TextField)`
 
   &.MuiTextField-root {
     width: 100%;
+  }
+
+  & .MuiInputBase-input.Mui-disabled {
+    color: black;
+    font-size: 32px;
+    -webkit-text-fill-color: black;
   }
 `;
