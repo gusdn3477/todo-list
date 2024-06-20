@@ -10,6 +10,7 @@ class CardStore {
       id: -1,
       checked: false,
       title: '',
+      date: '',
       isBookMarked: false,
       tagColor: '',
     };

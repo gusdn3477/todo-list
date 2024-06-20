@@ -45,7 +45,6 @@ const Card = observer(({ card }: CardProps) => {
           size="large"
         />
         <StyledStrong checked={card.checked}>{card.title}</StyledStrong>
-        <StyledSpan checked={card.checked}>{card.date}</StyledSpan>
         <Chip
           label={card.date || '날짜를 선택해 주세요'}
           onClick={handleChipClick}

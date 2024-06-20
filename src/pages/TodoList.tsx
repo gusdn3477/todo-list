@@ -60,6 +60,15 @@ const TodoList = observer(() => {
     UiStore.handleDialogVisible(false);
   };
 
+  const handleClickDay = (value: Date) => {
+    UiStore.handleCalendarVisible(false);
+    const card = {
+      ...CardStore.selectedCard,
+      date: value.toLocaleDateString(),
+    };
+    CardStore.updateCard(card);
+  };
+
   useEffect(() => {
     CardStore.fetchCardList();
   }, []);
@@ -111,7 +120,13 @@ const TodoList = observer(() => {
           top={UiStore.calendarPosition.top}
           left={UiStore.calendarPosition.left}
         >
-          <Calendar onClickDay={e => console.log(e)} />
+          <Calendar
+            value={
+              CardStore.selectedCard?.date &&
+              new Date(CardStore.selectedCard.date)
+            }
+            onClickDay={handleClickDay}
+          />
         </StyledCalendarWrapper>
       )}
       <ConfirmDialog
