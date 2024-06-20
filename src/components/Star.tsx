@@ -3,13 +3,13 @@ import StarIcon from '@mui/icons-material/Star';
 import { StyledIconWrapper } from '@/components/style';
 
 interface StarProps {
-  isBookMarked?: boolean;
+  $isbookmarked?: boolean;
   handleClick?: () => void;
 }
-const Star = ({ isBookMarked, handleClick }: StarProps) => {
+const Star = ({ $isbookmarked, handleClick }: StarProps) => {
   return (
     <StyledIconWrapper onClick={handleClick}>
-      {isBookMarked ? (
+      {$isbookmarked ? (
         <StarIcon fontSize="large" color="info" />
       ) : (
         <StarBorderIcon fontSize="large" />

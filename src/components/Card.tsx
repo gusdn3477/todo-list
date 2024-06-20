@@ -37,7 +37,7 @@ const Card = observer(({ card }: CardProps) => {
   };
 
   return (
-    <StyledCard checked={card.checked} isBookMarked={card.isBookMarked}>
+    <StyledCard checked={card.checked} $isbookmarked={card.isBookMarked}>
       <StyledCardLeft>
         <Checkbox
           onChange={event => handleCheckBoxClick(card.id, event)}
@@ -56,7 +56,7 @@ const Card = observer(({ card }: CardProps) => {
       <StyledCardRight>
         {!card.checked && (
           <Star
-            isBookMarked={card.isBookMarked}
+            $isbookmarked={card.isBookMarked}
             handleClick={() => handleBookMarkChange(card.id)}
           />
         )}
@@ -74,7 +74,7 @@ const Card = observer(({ card }: CardProps) => {
 
 export default Card;
 
-const StyledCard = styled.div<{ checked?: boolean; isBookMarked?: boolean }>`
+const StyledCard = styled.div<{ checked?: boolean; $isbookmarked?: boolean }>`
   display: flex;
   width: calc(100% - 2px);
   height: 65px;
@@ -82,7 +82,7 @@ const StyledCard = styled.div<{ checked?: boolean; isBookMarked?: boolean }>`
   align-items: center;
   justify-content: space-between;
   background-color: ${props =>
-    props.checked ? '#E2E2E2' : props.isBookMarked ? '#daeefa' : 'white'};
+    props.checked ? '#E2E2E2' : props.$isbookmarked ? '#daeefa' : 'white'};
 `;
 
 const StyledCardLeft = styled.div`
