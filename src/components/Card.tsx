@@ -1,12 +1,13 @@
-import { Checkbox } from '@mui/material';
+import { Checkbox, Chip } from '@mui/material';
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import { StyledIconWrapper } from '@/components/style';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, MouseEvent } from 'react';
 import CardStore from '@/store/CardStore';
 import { CardModel } from '@/models/CardModel';
 import { observer } from 'mobx-react-lite';
 import Star from '@/components/Star';
+import UiStore from '@/store/UiStore';
 
 export interface CardProps {
   card: CardModel;
@@ -28,6 +29,13 @@ const Card = observer(({ card }: CardProps) => {
     CardStore.deleteCard(id);
     // id를 가지고 스토어에서 해당 카드 삭제
   };
+
+  const handleChipClick = (event: MouseEvent<HTMLDivElement>) => {
+    UiStore.handleCalendarPosition(event.clientY, event.clientX);
+    UiStore.handleCalendarVisible(true);
+    CardStore.setSelectedCard(card);
+  };
+
   return (
     <StyledCard checked={card.checked} isBookMarked={card.isBookMarked}>
       <StyledCardLeft>
@@ -38,6 +46,11 @@ const Card = observer(({ card }: CardProps) => {
         />
         <StyledStrong checked={card.checked}>{card.title}</StyledStrong>
         <StyledSpan checked={card.checked}>{card.date}</StyledSpan>
+        <Chip
+          label={card.date || '날짜를 선택해 주세요'}
+          onClick={handleChipClick}
+          clickable
+        />
       </StyledCardLeft>
 
       <StyledCardRight>
