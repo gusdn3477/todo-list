@@ -4,5 +4,4 @@ export interface TodoModel {
   title: string;
   date?: string;
   isBookMarked: boolean;
-  tagColor: string;
 }

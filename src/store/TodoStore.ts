@@ -13,7 +13,6 @@ class TodoStore {
       title: '',
       date: '',
       isBookMarked: false,
-      tagColor: '',
     };
     this._cardList = [];
     this._lastCardIndex = 0;
@@ -28,7 +27,6 @@ class TodoStore {
       title: '',
       date: '',
       isBookMarked: false,
-      tagColor: '',
     };
     this._cardList = [];
     this._lastCardIndex = 0;

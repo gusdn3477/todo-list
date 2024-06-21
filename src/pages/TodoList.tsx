@@ -50,7 +50,6 @@ const TodoList = observer(() => {
               checked: false,
               title: store.taskName,
               isBookMarked: false,
-              tagColor: '',
             });
             store.taskName = '';
           }
