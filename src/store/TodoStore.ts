@@ -64,7 +64,10 @@ class TodoStore {
   }
 
   fetchCardList() {
-    this._cardList = [];
+    const jsonString = localStorage.getItem('todoList');
+    if (jsonString) {
+      this._cardList = JSON.parse(jsonString);
+    } else this._cardList = [];
   }
 
   updateCard(updateCard: TodoModel) {
@@ -75,15 +78,24 @@ class TodoStore {
           }
         : card,
     );
+
+    const jsonString = JSON.stringify(this._cardList);
+    localStorage.setItem('todoList', jsonString);
   }
 
   addCard(card: TodoModel) {
     this._cardList = [...this._cardList, card];
     this._lastCardIndex++;
+
+    const jsonString = JSON.stringify(this._cardList);
+    localStorage.setItem('todoList', jsonString);
   }
 
   deleteCard(id: number) {
     this._cardList = this._cardList.filter(card => card.id !== id);
+
+    const jsonString = JSON.stringify(this._cardList);
+    localStorage.setItem('todoList', jsonString);
   }
 
   toggleChecked(id: number, checked: boolean) {
@@ -98,6 +110,9 @@ class TodoStore {
             }
           : card,
       );
+
+      const jsonString = JSON.stringify(this._cardList);
+      localStorage.setItem('todoList', jsonString);
     }, 300);
   }
 
@@ -112,6 +127,9 @@ class TodoStore {
             }
           : card,
       );
+
+      const jsonString = JSON.stringify(this._cardList);
+      localStorage.setItem('todoList', jsonString);
     }, 300);
   }
 }
