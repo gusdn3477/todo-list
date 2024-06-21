@@ -9,6 +9,7 @@ import 'react-calendar/dist/Calendar.css';
 import UiStore from '@/store/UiStore';
 import { MouseEvent } from 'react';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { Button } from '@mui/material';
 
 const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
@@ -102,6 +103,7 @@ const TodoList = observer(() => {
           handleEnterKeyPress={handleEnterKeyPress('title')}
           disabled={store.disabled}
         />
+        <StyledButton>초기화</StyledButton>
       </StyledHeader>
       <InputField
         contents={store.taskName}
@@ -170,4 +172,19 @@ const StyledCalendarWrapper = styled.div<{ top: number; left: number }>`
   top: ${props => props.top}px;
   left: ${props => props.left}px;
   z-index: 1000;
+`;
+
+const StyledButton = styled(Button)`
+  &.MuiButtonBase-root {
+    background-color: black;
+    color: white;
+
+    &:hover {
+      background-color: black;
+    }
+    &:active {
+      background-color: black;
+    }
+  }
+  height: 40px;
 `;
