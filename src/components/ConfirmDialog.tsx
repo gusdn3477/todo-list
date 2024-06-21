@@ -6,13 +6,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 interface ConfirmDialogProps {
+  title: string;
+  contents: string;
+  confirmText?: string;
   open: boolean;
   handleClose: () => void;
   handleConfirm: () => void;
 }
 
 export const ConfirmDialog = ({
+  title,
+  contents,
   open,
+  confirmText,
   handleClose,
   handleConfirm,
 }: ConfirmDialogProps) => {
@@ -23,17 +29,17 @@ export const ConfirmDialog = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {'일정을 삭제하시겠습니까?'}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          삭제한 일정은 복구할 수 없습니다.
+          {contents}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>취소</Button>
-        <Button onClick={handleConfirm}>삭제하기</Button>
+        <Button onClick={handleConfirm}>
+          {confirmText ? confirmText : '삭제하기'}
+        </Button>
       </DialogActions>
     </Dialog>
   );

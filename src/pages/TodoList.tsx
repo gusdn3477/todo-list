@@ -15,8 +15,6 @@ const TodoList = observer(() => {
     title: '',
     taskName: '',
     disabled: false,
-    // TODO: DB로 관리 필요
-    lastIdx: 0,
   }));
 
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -46,7 +44,7 @@ const TodoList = observer(() => {
         } else {
           if (store.taskName.length > 0) {
             CardStore.addCard({
-              id: store.lastIdx++,
+              id: CardStore.lastCardIndex,
               checked: false,
               title: store.taskName,
               isBookMarked: false,
@@ -60,7 +58,12 @@ const TodoList = observer(() => {
 
   const handleCardDelete = () => {
     CardStore.deleteCard(CardStore.selectedCard.id);
-    UiStore.handleDialogVisible(false);
+    UiStore.handleDialogVisible('delete', false);
+  };
+
+  const handleReset = () => {
+    UiStore.init();
+    CardStore.init();
   };
 
   const handleClickDay = (value: Date) => {
@@ -134,9 +137,19 @@ const TodoList = observer(() => {
         </StyledCalendarWrapper>
       )}
       <ConfirmDialog
-        open={UiStore.open}
-        handleClose={() => UiStore.handleDialogVisible(false)}
+        title={'일정을 삭제하시겠습니까?'}
+        contents={'삭제한 일정은 복구할 수 없습니다.'}
+        open={UiStore.deleteConfirmDialogOpen}
+        handleClose={() => UiStore.handleDialogVisible('delete', false)}
         handleConfirm={handleCardDelete}
+      />
+      <ConfirmDialog
+        title={'일정을 초기화하시겠습니까?'}
+        contents={'초기화된 일정은 복구할 수 없습니다.'}
+        open={UiStore.resetConfirmDialogOpen}
+        handleClose={() => UiStore.handleDialogVisible('reset', false)}
+        handleConfirm={handleReset}
+        confirmText={'초기화하기'}
       />
     </>
   );

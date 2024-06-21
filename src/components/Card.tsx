@@ -28,7 +28,7 @@ const Card = observer(({ card }: CardProps) => {
 
   const handleCardDelete = () => {
     CardStore.setSelectedCard(card);
-    UiStore.handleDialogVisible(true);
+    UiStore.handleDialogVisible('delete', true);
   };
 
   const handleChipClick = (event: MouseEvent<HTMLDivElement>) => {
