@@ -1,9 +1,9 @@
-import { CardModel } from '@/models/CardModel';
+import { TodoModel } from '@/models/TodoModel';
 import { makeAutoObservable } from 'mobx';
 
 class TodoStore {
-  private _selectedCard: CardModel;
-  private _cardList: CardModel[];
+  private _selectedCard: TodoModel;
+  private _cardList: TodoModel[];
   private _lastCardIndex: number;
 
   constructor() {
@@ -59,7 +59,7 @@ class TodoStore {
     return this._lastCardIndex;
   }
 
-  setSelectedCard(card: CardModel) {
+  setSelectedCard(card: TodoModel) {
     this._selectedCard = card;
   }
 
@@ -67,7 +67,7 @@ class TodoStore {
     this._cardList = [];
   }
 
-  updateCard(updateCard: CardModel) {
+  updateCard(updateCard: TodoModel) {
     this._cardList = this._cardList.map(card =>
       card.id === updateCard.id
         ? {
@@ -77,7 +77,7 @@ class TodoStore {
     );
   }
 
-  addCard(card: CardModel) {
+  addCard(card: TodoModel) {
     this._cardList = [...this._cardList, card];
     this._lastCardIndex++;
   }

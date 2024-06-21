@@ -1,4 +1,4 @@
-export interface CardModel {
+export interface TodoModel {
   id: number;
   checked: boolean;
   title: string;

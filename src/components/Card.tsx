@@ -4,14 +4,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { StyledIconWrapper } from '@/components/style';
 import { ChangeEvent, MouseEvent } from 'react';
 import TodoStore from '@/store/TodoStore';
-import { CardModel } from '@/models/CardModel';
+import { TodoModel } from '@/models/TodoModel';
 import { observer } from 'mobx-react-lite';
 import Star from '@/components/Star';
 import UiStore from '@/store/UiStore';
 import { isMobile } from '@/util/isMobile';
 
 export interface CardProps {
-  card: CardModel;
+  card: TodoModel;
 }
 
 const Card = observer(({ card }: CardProps) => {
