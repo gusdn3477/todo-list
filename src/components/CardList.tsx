@@ -1,14 +1,14 @@
-import CardStore from '@/store/CardStore';
+import TodoStore from '@/store/TodoStore';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import Card from './Card';
 
 const CardList = observer(() => {
   useEffect(() => {
-    CardStore.fetchCardList();
+    TodoStore.fetchCardList();
   }, []);
 
-  const cardList = CardStore.cardList.map(card => <Card card={card} />);
+  const cardList = TodoStore.cardList.map(card => <Card card={card} />);
 
   return cardList;
 });

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import { StyledIconWrapper } from '@/components/style';
 import { ChangeEvent, MouseEvent } from 'react';
-import CardStore from '@/store/CardStore';
+import TodoStore from '@/store/TodoStore';
 import { CardModel } from '@/models/CardModel';
 import { observer } from 'mobx-react-lite';
 import Star from '@/components/Star';
@@ -19,22 +19,22 @@ const Card = observer(({ card }: CardProps) => {
     id: number,
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    CardStore.toggleChecked(id, event.target.checked);
+    TodoStore.toggleChecked(id, event.target.checked);
   };
 
   const handleBookMarkChange = (id: number) => {
-    CardStore.toggleBookMark(id);
+    TodoStore.toggleBookMark(id);
   };
 
   const handleCardDelete = () => {
-    CardStore.setSelectedCard(card);
+    TodoStore.setSelectedCard(card);
     UiStore.handleDialogVisible('delete', true);
   };
 
   const handleChipClick = (event: MouseEvent<HTMLDivElement>) => {
     UiStore.handleCalendarPosition(event.clientY, event.clientX);
     UiStore.handleCalendarVisible(true);
-    CardStore.setSelectedCard(card);
+    TodoStore.setSelectedCard(card);
   };
 
   return (
