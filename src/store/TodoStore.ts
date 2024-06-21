@@ -1,7 +1,7 @@
 import { CardModel } from '@/models/CardModel';
 import { makeAutoObservable } from 'mobx';
 
-class CardStore {
+class TodoStore {
   private _selectedCard: CardModel;
   private _cardList: CardModel[];
   private _lastCardIndex: number;
@@ -116,4 +116,4 @@ class CardStore {
   }
 }
 
-export default new CardStore();
+export default new TodoStore();

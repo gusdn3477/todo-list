@@ -2,7 +2,7 @@ import InputField from '@/components/InputField';
 import styled from 'styled-components';
 import { KeyboardEvent, ChangeEvent, useEffect, useRef } from 'react';
 import { observer, useLocalObservable } from 'mobx-react-lite';
-import CardStore from '@/store/CardStore';
+import TodoStore from '@/store/TodoStore';
 import Card from '@/components/Card';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -13,9 +13,9 @@ import { Button } from '@mui/material';
 
 const TodoList = observer(() => {
   const store = useLocalObservable(() => ({
-    title: '',
+    title: localStorage.getItem('title') || '',
     taskName: '',
-    disabled: false,
+    disabled: localStorage.getItem('title') ? true : false,
   }));
 
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -41,11 +41,12 @@ const TodoList = observer(() => {
     (type: 'title' | 'taskName') => (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
         if (type === 'title' && store.title.length > 0) {
+          localStorage.setItem('title', store.title);
           store.disabled = true;
         } else {
           if (store.taskName.length > 0) {
-            CardStore.addCard({
-              id: CardStore.lastCardIndex,
+            TodoStore.addCard({
+              id: TodoStore.lastCardIndex,
               checked: false,
               title: store.taskName,
               isBookMarked: false,
@@ -58,26 +59,30 @@ const TodoList = observer(() => {
     };
 
   const handleCardDelete = () => {
-    CardStore.deleteCard(CardStore.selectedCard.id);
+    TodoStore.deleteCard(TodoStore.selectedCard.id);
     UiStore.handleDialogVisible('delete', false);
   };
 
   const handleReset = () => {
+    localStorage.clear();
     UiStore.init();
-    CardStore.init();
+    TodoStore.init();
+    store.title = '';
+    store.taskName = '';
+    store.disabled = false;
   };
 
   const handleClickDay = (value: Date) => {
     UiStore.handleCalendarVisible(false);
     const card = {
-      ...CardStore.selectedCard,
+      ...TodoStore.selectedCard,
       date: value.toLocaleDateString(),
     };
-    CardStore.updateCard(card);
+    TodoStore.updateCard(card);
   };
 
   useEffect(() => {
-    CardStore.fetchCardList();
+    TodoStore.fetchCardList();
   }, []);
 
   useEffect(() => {
@@ -103,7 +108,11 @@ const TodoList = observer(() => {
           handleEnterKeyPress={handleEnterKeyPress('title')}
           disabled={store.disabled}
         />
-        <StyledButton>초기화</StyledButton>
+        <StyledButton
+          onClick={() => UiStore.handleDialogVisible('reset', true)}
+        >
+          초기화
+        </StyledButton>
       </StyledHeader>
       <InputField
         contents={store.taskName}
@@ -111,15 +120,15 @@ const TodoList = observer(() => {
         placeholder="할 일을 입력해 주세요. (최대 15자)"
         handleEnterKeyPress={handleEnterKeyPress('taskName')}
       />
-      {CardStore.bookMarkedList.map(card => (
+      {TodoStore.bookMarkedList.map(card => (
         <Card card={card} key={`bookmark_${card.id}`} />
       ))}
 
-      {CardStore.normalList.map(card => (
+      {TodoStore.normalList.map(card => (
         <Card card={card} key={`normal_${card.id}`} />
       ))}
 
-      {CardStore.checkedList.map(card => (
+      {TodoStore.checkedList.map(card => (
         <Card card={card} key={`checked_${card.id}`} />
       ))}
 
@@ -131,8 +140,8 @@ const TodoList = observer(() => {
         >
           <Calendar
             value={
-              CardStore.selectedCard?.date &&
-              new Date(CardStore.selectedCard.date)
+              TodoStore.selectedCard?.date &&
+              new Date(TodoStore.selectedCard.date)
             }
             onClickDay={handleClickDay}
           />
