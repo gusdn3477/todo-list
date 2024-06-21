@@ -8,6 +8,7 @@ import { CardModel } from '@/models/CardModel';
 import { observer } from 'mobx-react-lite';
 import Star from '@/components/Star';
 import UiStore from '@/store/UiStore';
+import { isMobile } from '@/util/isMobile';
 
 export interface CardProps {
   card: CardModel;
@@ -45,11 +46,13 @@ const Card = observer(({ card }: CardProps) => {
           size="large"
         />
         <StyledStrong checked={card.checked}>{card.title}</StyledStrong>
-        <Chip
-          label={card.date || '날짜를 선택해 주세요'}
-          onClick={handleChipClick}
-          clickable
-        />
+        {!isMobile() && (
+          <Chip
+            label={card.date || '날짜를 선택해 주세요'}
+            onClick={handleChipClick}
+            clickable
+          />
+        )}
       </StyledCardLeft>
 
       <StyledCardRight>
