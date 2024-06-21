@@ -32,8 +32,11 @@ class TodoStore {
     this._lastCardIndex = 0;
   }
 
+  // 북마크가 되어 있더라도 체크가 된 것은 제외되어야 함
   get bookMarkedList() {
-    return this._cardList.filter(card => card.isBookMarked === true);
+    return this._cardList.filter(
+      card => card.checked === false && card.isBookMarked === true,
+    );
   }
 
   get checkedList() {
@@ -74,17 +77,19 @@ class TodoStore {
   }
 
   updateCard(updateCard: TodoModel) {
-    this._cardList = this._cardList.map(card =>
-      card.id === updateCard.id
-        ? {
-            ...updateCard,
-          }
-        : card,
-    );
+    setTimeout(() => {
+      this._cardList = this._cardList.map(card =>
+        card.id === updateCard.id
+          ? {
+              ...updateCard,
+            }
+          : card,
+      );
 
-    const jsonString = JSON.stringify(this._cardList);
-    localStorage.setItem('todoList', jsonString);
-    localStorage.setItem('lastIndex', String(this._lastCardIndex));
+      const jsonString = JSON.stringify(this._cardList);
+      localStorage.setItem('todoList', jsonString);
+      localStorage.setItem('lastIndex', String(this._lastCardIndex));
+    }, 300);
   }
 
   addCard(card: TodoModel) {
