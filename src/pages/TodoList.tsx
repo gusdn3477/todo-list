@@ -32,7 +32,10 @@ const TodoList = observer(() => {
 
   const handleContentsChange =
     (type: 'title' | 'taskName') => (event: ChangeEvent<HTMLInputElement>) => {
-      store[type] = event.target.value;
+      if (type === 'title')
+        event.target.value.length <= 10 && (store[type] = event.target.value);
+      else
+        event.target.value.length <= 15 && (store[type] = event.target.value);
     };
 
   const handleEnterKeyPress =
@@ -92,7 +95,7 @@ const TodoList = observer(() => {
         <InputField
           contents={store.title}
           handleContentsChange={handleContentsChange('title')}
-          placeholder="제목을 입력해 주세요."
+          placeholder="제목을 입력해 주세요. (최대 10자)"
           handleEnterKeyPress={handleEnterKeyPress('title')}
           disabled={store.disabled}
         />
@@ -100,7 +103,7 @@ const TodoList = observer(() => {
       <InputField
         contents={store.taskName}
         handleContentsChange={handleContentsChange('taskName')}
-        placeholder="할 일을 입력해 주세요."
+        placeholder="할 일을 입력해 주세요. (최대 15자)"
         handleEnterKeyPress={handleEnterKeyPress('taskName')}
       />
       {CardStore.bookMarkedList.map(card => (
