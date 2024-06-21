@@ -160,7 +160,7 @@ const TodoList = observer(() => {
         open={UiStore.resetConfirmDialogOpen}
         handleClose={() => UiStore.handleDialogVisible('reset', false)}
         handleConfirm={handleReset}
-        confirmText={'초기화하기'}
+        confirmText={'초기화'}
       />
     </>
   );
@@ -185,14 +185,16 @@ const StyledCalendarWrapper = styled.div<{ top: number; left: number }>`
 
 const StyledButton = styled(Button)`
   &.MuiButtonBase-root {
-    background-color: black;
+    background-color: #0064ff;
     color: white;
+    width: 120px;
+    border-radius: 8px;
 
     &:hover {
-      background-color: black;
+      background-color: #0064ff;
     }
     &:active {
-      background-color: black;
+      background-color: #0064ff;
     }
   }
   height: 40px;

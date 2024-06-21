@@ -40,7 +40,7 @@ const Card = observer(({ card }: CardProps) => {
   return (
     <StyledCard checked={card.checked} $isbookmarked={card.isBookMarked}>
       <StyledCardLeft>
-        <Checkbox
+        <StyledCheckBox
           onChange={event => handleCheckBoxClick(card.id, event)}
           checked={card.checked}
           size="large"
@@ -92,6 +92,11 @@ const StyledCardLeft = styled.div`
   }
 `;
 
+const StyledCheckBox = styled(Checkbox)`
+  &.MuiCheckbox-root.Mui-checked {
+    color: #0064ff;
+  }
+`;
 const StyledCardRight = styled.div`
   display: flex;
   align-items: center;
