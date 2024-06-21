@@ -81,7 +81,7 @@ const TodoList = observer(() => {
   };
 
   useEffect(() => {
-    TodoStore.fetchCardList();
+    TodoStore.fetchLastData();
   }, []);
 
   useEffect(() => {

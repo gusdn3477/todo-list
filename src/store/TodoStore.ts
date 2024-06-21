@@ -61,11 +61,16 @@ class TodoStore {
     this._selectedCard = card;
   }
 
-  fetchCardList() {
+  fetchLastData() {
     const jsonString = localStorage.getItem('todoList');
     if (jsonString) {
       this._cardList = JSON.parse(jsonString);
     } else this._cardList = [];
+
+    const lastIndex = localStorage.getItem('lastIndex');
+    if (lastIndex) {
+      this._lastCardIndex = Number(lastIndex);
+    }
   }
 
   updateCard(updateCard: TodoModel) {
@@ -79,6 +84,7 @@ class TodoStore {
 
     const jsonString = JSON.stringify(this._cardList);
     localStorage.setItem('todoList', jsonString);
+    localStorage.setItem('lastIndex', String(this._lastCardIndex));
   }
 
   addCard(card: TodoModel) {
@@ -87,6 +93,7 @@ class TodoStore {
 
     const jsonString = JSON.stringify(this._cardList);
     localStorage.setItem('todoList', jsonString);
+    localStorage.setItem('lastIndex', String(this._lastCardIndex));
   }
 
   deleteCard(id: number) {
