@@ -15,15 +15,14 @@ export interface CardProps {
 }
 
 const Card = observer(({ card }: CardProps) => {
-  const handleCheckBoxClick = (
-    id: number,
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
-    TodoStore.toggleChecked(id, event.target.checked);
+  const handleCheckBoxClick = (event: ChangeEvent<HTMLInputElement>) => {
+    const copiedCard = { ...card, checked: event.target.checked };
+    TodoStore.updateCard(copiedCard);
   };
 
-  const handleBookMarkChange = (id: number) => {
-    TodoStore.toggleBookMark(id);
+  const handleBookMarkChange = () => {
+    const copiedCard = { ...card, isBookMarked: !card.isBookMarked };
+    TodoStore.updateCard(copiedCard);
   };
 
   const handleCardDelete = () => {
@@ -41,7 +40,7 @@ const Card = observer(({ card }: CardProps) => {
     <StyledCard checked={card.checked} $isbookmarked={card.isBookMarked}>
       <StyledCardLeft>
         <StyledCheckBox
-          onChange={event => handleCheckBoxClick(card.id, event)}
+          onChange={handleCheckBoxClick}
           checked={card.checked}
           size="large"
         />
@@ -59,7 +58,7 @@ const Card = observer(({ card }: CardProps) => {
         {!card.checked && (
           <Star
             $isbookmarked={card.isBookMarked}
-            handleClick={() => handleBookMarkChange(card.id)}
+            handleClick={handleBookMarkChange}
           />
         )}
 
