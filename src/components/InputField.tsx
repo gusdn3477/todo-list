@@ -44,4 +44,10 @@ const StyledTextField = styled(TextField)`
     font-size: 32px;
     -webkit-text-fill-color: black;
   }
+
+  & .MuiOutlinedInput-root {
+    &.Mui-focused fieldset {
+      border: 1px solid black;
+    }
+  }
 `;
