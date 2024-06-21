@@ -155,7 +155,9 @@ const TodoList = observer(() => {
       />
       <ConfirmDialog
         title={'일정을 초기화하시겠습니까?'}
-        contents={'초기화된 일정은 복구할 수 없습니다.'}
+        contents={
+          '모든 데이터가 삭제되며 초기화된 데이터는 복구할 수 없습니다.'
+        }
         open={UiStore.resetConfirmDialogOpen}
         handleClose={() => UiStore.handleDialogVisible('reset', false)}
         handleConfirm={handleReset}
