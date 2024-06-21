@@ -38,7 +38,7 @@ class CardStore {
     return this._cardList.filter(card => card.isBookMarked === true);
   }
 
-  get completedList() {
+  get checkedList() {
     return this._cardList.filter(card => card.checked === true);
   }
 

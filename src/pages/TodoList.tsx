@@ -117,8 +117,8 @@ const TodoList = observer(() => {
         <Card card={card} key={`normal_${card.id}`} />
       ))}
 
-      {CardStore.completedList.map(card => (
-        <Card card={card} key={`completed_${card.id}`} />
+      {CardStore.checkedList.map(card => (
+        <Card card={card} key={`checked_${card.id}`} />
       ))}
 
       {UiStore.calendarOpen && (
